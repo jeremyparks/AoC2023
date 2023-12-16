@@ -54,3 +54,5 @@ def main(filepath):
 if __name__ == '__main__':
     total = main('day1-input.txt')
     print(total)
+    # part1 = 55123
+    # part2 = 55260
