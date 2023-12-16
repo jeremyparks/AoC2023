@@ -12,6 +12,18 @@ DIGITS = '1 2 3 4 5 6 7 8 9'.split()
 WORD_TO_DIGIT_MAP = dict(zip(WORDS, DIGITS))
 
 
+def digits_from_line(s):
+    digits = []
+    for index, char in enumerate(s):
+        if char.isdigit():
+            digits.append(char)
+            continue
+        for word, digit in WORD_TO_DIGIT_MAP.items():
+            if s[index:].startswith(word):
+                digits.append(digit)
+    return digits
+
+
 def gen_line(filepath):
     with open(filepath, 'r', encoding='utf-8') as f:
         for line in f:
@@ -20,14 +32,14 @@ def gen_line(filepath):
 
 def gen_digits(lines):
     for line in lines:
-        for word in WORDS:
-            line = line.replace(word, WORD_TO_DIGIT_MAP[word])
-        yield [s for s in line if s.isdigit()]
+        digits = digits_from_line(line)
+        yield digits
 
 
 def gen_values(digits_list):
     for digits in digits_list:
         value = digits[0] + digits[-1]
+        print(value, int(value))
         yield int(value)
 
 
